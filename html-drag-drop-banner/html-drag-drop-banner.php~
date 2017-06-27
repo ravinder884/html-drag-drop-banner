@@ -1,0 +1,150 @@
+<?php
+/*
+Plugin Name: HTML5 DRAG DROP BANNER
+Plugin URI:  rvtechnologies.co.in
+Description: EASY HTML5 DRAG DROP BANNER FOR EACH PAGE
+Version:     1.0.0
+Author:      rvtechnologies.co.in
+Author URI:  rvtechnologies.co.in
+*/
+
+function load_html5imageupload_style() {
+   wp_register_script( 'html5imageupload', plugins_url() . '/html-drag-drop-banner/assets/js/html5imageupload.js', true, '1.0.0' );
+        wp_enqueue_script( 'html5imageupload' );
+}
+//add_action( 'wp_enqueue_scripts', 'load_html5imageupload_style' );
+function loadimgaeuploadJs() {
+   echo "<script type='text/javascript' src=".plugins_url() . "/html-drag-drop-banner/assets/js/html5imageupload.js></script>";
+?>
+ <?php
+}
+add_action('wp_footer', 'loadimgaeuploadJs', 100);
+
+function wpse_89494_enqueue_scripts() {
+
+        wp_enqueue_style( 'wpse_89494_style_3', plugins_url() . '/html-drag-drop-banner/assets/css/html5imageupload.css' );
+    
+}
+
+add_action( 'wp_enqueue_scripts', 'wpse_89494_enqueue_scripts' );
+
+function html5adjsutablebanners($attrs) {
+    ob_start(); 
+
+    ?>
+
+
+<?php if( current_user_can('editor') || current_user_can('admin') || current_user_can('administrator') ) {  
+
+$post_thumbnail_id = get_post_thumbnail_id( $post_id ); 
+
+if($post_thumbnail_id =="") { ?>
+<div class="addbanner"><img src="<?php echo site_url(); ?>/wp-content/plugins/html-drag-drop-banner/assets/bannerimage.png">
+</div>
+
+  <div class="dropzone" data-originalsize="false"  data-image="<?php echo the_post_thumbnail_url(); ?>" data-url="<?php echo site_url(); ?>/wp-content/plugins/html-drag-drop-banner/canvas.php" data-resize="false" data-originalsize="false" style="display:none;height:auto;width: 80%;min-height:200px;">
+            <input type="file" name="thumb" style="position: absolute;">
+          </div>
+
+<?php } else { ?>
+
+ <div class="dropzone" data-originalsize="false" data-image="<?php echo the_post_thumbnail_url(); ?>" data-url="<?php echo site_url(); ?>/wp-content/plugins/html-drag-drop-banner/canvas.php" data-resize="false" data-originalsize="false" style="width:80%;height:auto;">
+            <input type="file" name="thumb" style="position: absolute;min-height:200px;">
+          </div>
+<?php }
+
+?> 
+
+
+
+<?php }
+else { 
+
+    ?> <div class="<?php echo $attrs['class']; ?>" ><?php the_post_thumbnail(); ?> </div><?php
+}
+ ?>
+
+  
+  <link href="http://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css" rel="stylesheet">
+
+   <!--   <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script> -->
+
+              <script>
+                           jQuery(window).load(function() {
+
+    jQuery('#retrievingfilename').html5imageupload({
+        onAfterProcessImage: function() {
+            jQuery('#filename').val($(this.element).data('name'));
+        },
+        onAfterCancel: function() {
+            jQuery('#filename').val('');
+        }
+        
+    });
+    
+    jQuery('.dropzone').html5imageupload({
+        onSave: function(data) {
+         alert('done');
+        },
+        
+    });
+jQuery('.dropzone').html5imageupload({data: {customValue: <?php echo get_the_id(); ?>}});
+
+
+
+jQuery('.dropzone').html5imageupload({  data: {customValue: <?php echo get_the_id(); ?>},
+    onAfterProcessImage: function() {
+         location.reload();
+       },
+
+    onAfterCancel: function() {
+    }
+});
+
+    
+    jQuery( "#myModal" ).on('shown.bs.modal', function(){
+        jQuery('#modaldialog').html5imageupload();
+    });
+    /*
+    $('#form').html5imageupload({
+        onAfterProcessImage: function() {
+            $(this.element).closest('form').submit();
+        }
+    });
+    
+    $('form button.btn').unbind('click').click(function(e) {
+          e.preventDefault()
+          $(this).closest('form').find('#form').data('html5imageupload').imageCrop()
+    });*/
+jQuery(".btn-del").attr( "onclick" , "return delimg(<?php echo $post_thumbnail_id; ?>);" );
+
+jQuery(".addbanner").click(function() {
+   jQuery(this).hide();
+      jQuery(".dropzone").show();
+
+})
+
+    });
+   function delimg(arg) {
+       jQuery.ajax({
+        type: "POST",
+        url: "<?php echo site_url(); ?>/wp-content/plugins/html-drag-drop-banner/delete.php",
+        cache: false,
+        data: { text1: arg,},
+        dataType: "json",
+        success: function(data) {
+            alert('dsfsdfdsf');
+        }
+    })
+setTimeout(explode, 1000);
+   }
+
+function explode(){
+location.reload();
+}
+    </script>
+
+
+ <?php   return ob_get_clean();   
+} 
+add_shortcode( 'HTML5-BANNER', 'html5adjsutablebanners' );

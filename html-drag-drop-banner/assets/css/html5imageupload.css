@@ -1,0 +1,49 @@
+@charset "utf-8";
+
+html, body { font-family: arial; }
+.dropzone { background-color: #EEEEEE; text-align: center; display: inline-block; }
+.dropzone { z-index: 99999999; width: 100% !important; margin-top: 0px !important; }
+.dropzone:after { font-size: 30px; color: #BBBBBB; position: absolute; bottom: 60%; left: 0; width: 100%; text-align: center; z-index: 0; }
+.dropzone:before { content: ''; font-family: "Glyphicons Halflings"; font-size: 60px; color: #DBDBDB; position: absolute; top: 20%; left: 0; width: 100%; text-align: center; z-index: 0; background: url(bannercrop.jpg) no-repeat center center; background-color: #EEE; min-height: 250px; }
+.dropzone.loading:after { content: 'Please wait, image is loading'; }
+.dropzone.loading:before { content: ''; }
+.dropzone.done:after { content: ''; }
+.dropzone.done:before { content: ''; }
+/* not an image */
+.dropzone.notAnImage { background-color: #F2DEDE; border-color: #EBCCD1; }
+.dropzone.notAnImage:after { content: 'The selected file is not an image!'; color: #A94442; }
+.dropzone.notAnImage:before { content: ''; color: #EBCCD1; }
+.dropzone.alert-danger { background-color: #F2DEDE; }
+.dropzone.alert-danger:after { content: ''; }
+.dropzone.smalltext:before, .dropzone.smalltext:after { font-size: 20px; }
+.dropzone > span { font-size: 30px; color: #BBBBBB; position: absolute; top: 35%; left: 0; width: 100%; text-align: center; z-index: 0; }
+.dropzone > span.loader { display: none; }
+.dropzone > input[type=file] { position: absolute; top: 0; left: 0; bottom: 0; right: 0; width: 100%; opacity: 0; cursor: pointer; z-index: 2; /* IE HACK*/ height: 100%; }
+.dropzone > input[type=text] { display: none; }
+.dropzone .progress { bottom: 10px; left: 10px; right: 10px; display: none; }
+.dropzone .cropWrapper { overflow: hidden; position: absolute; top: 0; bottom: 0; left: 0; right: 0; z-index: 10; background-color: #EEEEEE; text-align: left; }
+/*.dropzone canvas.final			{ background-color: #eeeeee;}*/
+.dropzone img { z-index: 5; position: relative; }
+.dropzone img.ghost { opacity: 0.2; z-index: auto; /* HACK for not scrolling*/ float: left; }
+.dropzone img.main { cursor: move; }
+.dropzone .final img.main { cursor: auto; }
+.dropzone img.preview { width: 100%; }
+.dropzone .tools { position: absolute; top: 10px; right: 10px; z-index: 999; display: inline-block; }
+.dropzone .tools > * { margin: 0 0 0 5px; }
+.dropzone.smalltools .tools .btn { padding: 1px 4px; font-size: 12px; }
+.dropzone .download { position: absolute; bottom: 10px; left: 10px; z-index: 999; display: inline-block; }
+.dropzone .download > * { margin: 0 0 0 5px; }
+.dropzone .btn.btn-info.btn-edit { display: none; }
+form.dropzone:after { display: none; }
+form.dropzone { display: none; background: url(bannercrop.jpg) no-repeat center center; background-color: #EEE; min-height: 250px; }
+.banner .dropzone { background: url(bannercrop.jpg) no-repeat center center; background-color: #EEE; }
+.glyphicon { position: relative; top: 1px; display: inline-block; font-family: 'fontawesome'; font-style: normal; font-weight: 400; line-height: 1; -webkit-font-smoothing: antialiased; -moz-osx-font-smoothing: grayscale; }
+.dropzone .btn-ok { background-color: #59A95A; padding-top: 6px; padding-bottom: 8px; margin-top: -30px; /*+placement: 55px 0px;*/ position: relative; left: 55px; top: 0px; /*+border-radius: 4px;*/ -moz-border-radius: 4px; -webkit-border-radius: 4px; -khtml-border-radius: 4px; border-radius: 4px; margin-left: 0; cursor: pointer; }
+.dropzone .tools { margin-right: 70px; }
+.glyphicon-ok:before { content: "\f00c"; font-family: fontawesome; color: #FFFFFF; }
+.glyphicon-remove:before { content: "\f014"; }
+.glyphicon-off:before { content: "\e017"; }
+.glyphicon-trash:before { content: "\f014"; }
+.btn-default { color: #333; background-color: #FFF; border-color: #CCC; display: none; }
+.btn.btn-danger { color: #FFF; background-color: #D9534F; border-color: #D43F3A; display: inline-block; padding-top: 6px; padding-bottom: 7px; /*+border-radius: 2px;*/ -moz-border-radius: 2px; -webkit-border-radius: 2px; -khtml-border-radius: 2px; border-radius: 2px; padding-right: 11px; cursor: pointer; padding-left: 11px; }
+.btn-danger.btn-del { position: relative; right: 0; margin: 19px; }
